@@ -114,6 +114,24 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .flow i{display:block;width:2px;height:14px;background:var(--ink)}
 .flow .row{display:flex;gap:8px;border:0;padding:0;min-width:0;background:none;flex-wrap:wrap;justify-content:center}
 .flow .row div{min-width:0}
+/* medical duration timeline */
+.med-key{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin:10px 0 6px}
+.med-key span{display:inline-flex;align-items:center;gap:6px}
+.med-key i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.c1{background:var(--accent)}.c2{background:var(--sky)}.c3{background:var(--s)}
+.med{display:flex;flex-direction:column;gap:10px;margin:6px 0 10px;max-width:640px}
+.med-row,.med-axis{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;align-items:start}
+.med-l{line-height:1.2;font-size:13.5px;padding-top:2px}
+.med-l small{display:block;color:var(--muted);font-size:12px}
+.med-r{min-width:0}
+.med-bar{display:flex;height:24px;border-radius:5px;overflow:hidden;background:var(--code-bg)}
+.med-bar span{display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;color:var(--panel);font:600 11.5px var(--mono);border-right:2px solid var(--panel)}
+.med-bar span.gap{background:none;border:0}
+.med-t{font-size:12.5px;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}
+.med-t b{color:var(--ink)}
+.med-axis>div{position:relative;height:16px;border-top:1px solid var(--line)}
+.med-axis i{position:absolute;top:2px;transform:translateX(-50%);font:500 11px var(--mono);color:var(--muted);font-style:normal;white-space:nowrap}
+.med-axis i:first-child{transform:none}.med-axis i:last-child{transform:translateX(-100%)}
 /* quiz */
 .quiz{background:var(--sky-soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:18px}
 .quiz h4{margin:0 0 8px;font-family:var(--display);font-size:20px;text-transform:uppercase;letter-spacing:.02em}
@@ -224,13 +242,18 @@ mark{background:#ffe27a;color:#14222f;border-radius:2px}
 <h4 class="sub">Getting a medical</h4>
 <ul><li>Find an AME → complete the FAA application in MedXPress → bring medical records for any conditions or medications → physical exam → certificate issued if standards are met (about $100–180).</li></ul>
 <h4 class="sub">61.23 Duration (calendar months)</h4>
-<div class="tbl-w"><table>
-<tr><th>Class</th><th>Privileges</th><th>Under 40</th><th>40 and over</th></tr>
-<tr><td>1st</td><td>ATP</td><td class="num">12</td><td class="num">6</td></tr>
-<tr><td>2nd</td><td>Commercial</td><td class="num">12</td><td class="num">12</td></tr>
-<tr><td>3rd</td><td>Private / instructor</td><td class="num">60</td><td class="num">24</td></tr>
-</table></div>
-<p>Every medical lasts as long as a 3rd class would; the privileges step down to 3rd class once 1st or 2nd class privileges lapse.</p>
+<p>One medical certificate, used in order. It starts with the privileges of the class issued, then steps down to the next class until the 3rd class time runs out. You never get 1st, then 2nd, then 3rd added on top of each other.</p>
+<div class="med-key"><span><i class="c1"></i>1st class (ATP)</span><span><i class="c2"></i>2nd class (commercial)</span><span><i class="c3"></i>3rd class (private, student, CFI)</span></div>
+<div class="med" role="table" aria-label="Medical certificate duration by class and age">
+<div class="med-row" role="row"><div class="med-l" role="rowheader"><b>1st class</b><small>under 40</small></div><div class="med-r" role="cell"><div class="med-bar"><span class="c1" style="flex:12">1st</span><span class="c3" style="flex:48">3rd</span><span class="gap" style="flex:0"></span></div><div class="med-t">1st: months 1–12 · then 3rd: months 13–60 · <b>60 total</b></div></div></div>
+<div class="med-row" role="row"><div class="med-l" role="rowheader"><b>1st class</b><small>40 and over</small></div><div class="med-r" role="cell"><div class="med-bar"><span class="c1" style="flex:6">1st</span><span class="c2" style="flex:6">2nd</span><span class="c3" style="flex:12">3rd</span><span class="gap" style="flex:36"></span></div><div class="med-t">1st: months 1–6 · then 2nd: 7–12 · then 3rd: 13–24 · <b>24 total</b></div></div></div>
+<div class="med-row" role="row"><div class="med-l" role="rowheader"><b>2nd class</b><small>under 40</small></div><div class="med-r" role="cell"><div class="med-bar"><span class="c2" style="flex:12">2nd</span><span class="c3" style="flex:48">3rd</span><span class="gap" style="flex:0"></span></div><div class="med-t">2nd: months 1–12 · then 3rd: months 13–60 · <b>60 total</b></div></div></div>
+<div class="med-row" role="row"><div class="med-l" role="rowheader"><b>2nd class</b><small>40 and over</small></div><div class="med-r" role="cell"><div class="med-bar"><span class="c2" style="flex:12">2nd</span><span class="c3" style="flex:12">3rd</span><span class="gap" style="flex:36"></span></div><div class="med-t">2nd: months 1–12 · then 3rd: months 13–24 · <b>24 total</b></div></div></div>
+<div class="med-row" role="row"><div class="med-l" role="rowheader"><b>3rd class</b><small>under 40</small></div><div class="med-r" role="cell"><div class="med-bar"><span class="c3" style="flex:60">3rd</span><span class="gap" style="flex:0"></span></div><div class="med-t">3rd: months 1–60 · <b>60 total</b></div></div></div>
+<div class="med-row" role="row"><div class="med-l" role="rowheader"><b>3rd class</b><small>40 and over</small></div><div class="med-r" role="cell"><div class="med-bar"><span class="c3" style="flex:24">3rd</span><span class="gap" style="flex:36"></span></div><div class="med-t">3rd: months 1–24 · <b>24 total</b></div></div></div>
+<div class="med-axis" aria-hidden="true"><span></span><div><i style="left:0">0</i><i style="left:20%">12</i><i style="left:40%">24</i><i style="left:100%">60 mo</i></div></div>
+</div>
+<p>Age is your age on the date of the exam. Months are calendar months, counted through the last day of the month the exam was in (61.23(d)).</p>
 <h4 class="sub">61.53 Self-grounding</h4>
 <p>You may not act as a crewmember if you know or have reason to know of a medical condition that would make you unable to meet the requirements for your medical or to safely operate.</p>
 <h4 class="sub">67.401 Special issuance vs. SODA</h4>
@@ -239,7 +262,8 @@ mark{background:#ffe27a;color:#14222f;border-radius:2px}
 <li><b>SODA</b> (Statement of Demonstrated Ability) — does not expire. For static conditions (e.g. loss of a limb).</li>
 </ul>
 <h4 class="sub">Over-the-counter medication</h4>
-<ul><li>Check with your AME before flying on anything new.</li><li>FAA rule of thumb: wait <b>5 × the longest dosing interval</b> before flying.</li></ul>
+<ul><li>Check with your AME before flying on anything new.</li><li>FAA rule: wait at least <b>5 dosing intervals</b> after the last dose before flying (e.g. every 4–6 hr → 30 hr; every 12 hr → 60 hr).</li>
+<li>FAA go/no-go list: <a href="https://www.faa.gov/sites/faa.gov/files/ame_guide/pharm/dni_dnf/OTCMedicationsforPilots.pdf" target="_blank" rel="noopener">What OTC medications can I take and still be safe to fly? (FAA PDF)</a></li></ul>
 </div></details>
 
 <details class="el k" id="PA-I-A-K4"><summary><span class="code">PA.I.A.K4</span><h3>Documents required to exercise private pilot privileges</h3></summary><div class="el-b">
