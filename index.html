@@ -176,6 +176,31 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 .aids.quiz-on .aid-l li,.aids.quiz-on .aid-x{cursor:pointer}
 .aids.quiz-on .aid-m{color:transparent;background:var(--code-bg);border-radius:3px;user-select:none}
 .aids.quiz-on .aid-m.rev{color:inherit;background:none;user-select:auto}
+/* progress tracking */
+.prog{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.prog-top{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;font-size:14px}
+.prog-top b{font-family:var(--display);font-size:18px;text-transform:uppercase;letter-spacing:.02em}
+.prog-top span{color:var(--muted);font-variant-numeric:tabular-nums}
+.prog-reset{margin-left:auto;padding:4px 10px;font-size:12px}
+.prog-reset.arm{border-color:var(--r);color:var(--r)}
+.prog-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--code-bg);margin:8px 0 6px}
+.prog-bar span{display:block;height:100%;transition:width .2s}
+.prog-bar .pg{background:var(--s)}.prog-bar .pr{background:var(--r)}
+.intro .prog-note{font-size:12.5px;margin:0}
+.pm{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 14px}
+.quiz .pm{padding:0 12px 10px}
+.pm-b{font:600 12.5px var(--body);border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:5px 12px;cursor:pointer}
+.pm-b:hover{border-color:var(--sky);color:var(--ink)}
+.pm-b.got[aria-pressed="true"]{background:var(--s-soft);border-color:var(--s);color:var(--s)}
+.pm-b.rev[aria-pressed="true"]{background:var(--r-soft);border-color:var(--r);color:var(--r)}
+.pm-dot{flex:none;font:700 13px var(--body);line-height:1;align-self:center}
+.pm-dot.got{color:var(--s)}.pm-dot.rev{color:var(--r)}
+.pm-dot.got::before{content:"✓"}.pm-dot.rev::before{content:"↺"}
+.quiz summary .pm-dot{margin-left:6px}
+.toc .pm-c{margin-left:auto;font:500 11px var(--mono);color:var(--muted);align-self:center;white-space:nowrap}
+.toc .pm-c.done{color:var(--s)}
+.toc .sub a.got::after{content:" ✓";color:var(--s)}
+.toc .sub a.rev::after{content:" ↺";color:var(--r)}
 @media (max-width:900px){
   .wrap{grid-template-columns:minmax(0,1fr)}
   #tocBtn{display:inline-block}
@@ -215,6 +240,11 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
   <p>Every Knowledge, Risk Management, and Skill element for Tasks A–H, in ACS order. Tap an element to open it, use search to jump to any reg or topic, and work the checkride questions at the end of each task. The Memory Aids cram sheet puts every mnemonic on one page.</p>
   <p>Aircraft-specific numbers are for the Piper Pilot 100i. Verify against the POH for the airplane you test in.</p>
   <div class="legend"><span class="tag k">K · Knowledge</span><span class="tag r">R · Risk Management</span><span class="tag s">S · Skills</span></div>
+  <div class="prog" id="prog" hidden>
+    <div class="prog-top"><b>Your progress</b><span id="progTxt"></span><button class="btn prog-reset" id="progReset">Reset</button></div>
+    <div class="prog-bar" aria-hidden="true"><span class="pg" id="progGot"></span><span class="pr" id="progRev"></span></div>
+    <p class="prog-note">Mark each element and checkride question <b>Got it</b> or <b>Review again</b>. Marks are saved in this browser only.</p>
+  </div>
 </div>
 
 <!-- ============ TASK A ============ -->
@@ -1788,6 +1818,59 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
   tasks.forEach(t=>io.observe(t));
 
   const els=[...document.querySelectorAll('details.el')];
+
+  // progress tracking: "got it" / "review again" per element and checkride question, saved in this browser
+  (function(){
+    const KEY='ppl-acs-progress';
+    let state={};
+    try{state=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){state={};}
+    const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}};
+    const hash=str=>{let h=0;for(let i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))|0;return (h>>>0).toString(36);};
+    const studied=tasks.filter(t=>!['aids','other','regs'].includes(t.id));
+    const items=[];
+    studied.forEach(t=>{
+      t._items=[];
+      t.querySelectorAll('details.el').forEach(d=>add(d,d.id,t,d.querySelector('summary')));
+      t.querySelectorAll('.quiz details').forEach(d=>{const sm=d.querySelector('summary'); add(d,'q-'+t.id+'-'+hash(sm.textContent),t,sm);});
+      const c=document.createElement('span'); c.className='pm-c'; t._a.appendChild(c); t._count=c;
+    });
+    function add(d,key,t,sm){
+      const bar=document.createElement('div'); bar.className='pm';
+      bar.innerHTML='<button type="button" class="pm-b got" aria-pressed="false">✓ Got it</button><button type="button" class="pm-b rev" aria-pressed="false">↺ Review again</button>';
+      d.appendChild(bar);
+      const dot=document.createElement('span'); dot.className='pm-dot';
+      const after=sm.querySelector('h3'); after?after.after(dot):sm.appendChild(dot);
+      const it={d,key,bar,dot,link:document.querySelector('#toc a[data-el="'+d.id+'"]')};
+      bar.addEventListener('click',e=>{const b=e.target.closest('.pm-b'); if(!b) return;
+        const v=b.classList.contains('got')?'got':'rev';
+        if(state[key]===v) delete state[key]; else state[key]=v;
+        save(); paint(it); totals();});
+      items.push(it); t._items.push(it); paint(it);
+    }
+    function paint(it){
+      const v=state[it.key];
+      it.bar.querySelector('.got').setAttribute('aria-pressed',v==='got');
+      it.bar.querySelector('.rev').setAttribute('aria-pressed',v==='rev');
+      it.dot.className='pm-dot'+(v?' '+v:''); it.dot.title=v==='got'?'Got it':v==='rev'?'Review again':'';
+      if(it.link){it.link.classList.toggle('got',v==='got');it.link.classList.toggle('rev',v==='rev');}
+    }
+    const prog=document.getElementById('prog'), txt=document.getElementById('progTxt'), reset=document.getElementById('progReset');
+    function totals(){
+      let g=0,r=0;
+      studied.forEach(t=>{const tg=t._items.filter(i=>state[i.key]==='got').length; g+=tg; r+=t._items.filter(i=>state[i.key]==='rev').length;
+        t._count.textContent=tg+'/'+t._items.length; t._count.classList.toggle('done',tg===t._items.length);});
+      const n=items.length;
+      txt.textContent=g+' of '+n+' got it · '+r+' to review';
+      document.getElementById('progGot').style.width=(g/n*100)+'%';
+      document.getElementById('progRev').style.width=(r/n*100)+'%';
+    }
+    let armed=null;
+    reset.onclick=()=>{
+      if(!reset.classList.contains('arm')){reset.classList.add('arm');reset.textContent='Tap again to clear all';clearTimeout(armed);armed=setTimeout(()=>{reset.classList.remove('arm');reset.textContent='Reset';},3000);return;}
+      state={}; save(); items.forEach(paint); totals(); reset.classList.remove('arm'); reset.textContent='Reset';
+    };
+    prog.hidden=false; totals();
+  })();
   els.forEach(d=>d._def=d.open);
 
   // links to an element open it
@@ -1817,6 +1900,7 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
   const q=document.getElementById('q'), hits=document.getElementById('hits'), clear=document.getElementById('clear'), empty=document.getElementById('empty');
   const quizItems=[...document.querySelectorAll('.quiz details')];
   els.forEach(d=>d._html=d.querySelector('.el-b').innerHTML);
+  const txt=d=>[...d.children].filter(c=>!c.classList.contains('pm')).map(c=>c.textContent).join(' ').toLowerCase();
   function unmark(){els.forEach(d=>{const b=d.querySelector('.el-b'); if(b._marked){b.innerHTML=d._html;b._marked=false;}});}
   function markIn(node,re){
     const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);const list=[];let n;
@@ -1836,8 +1920,8 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
     }
     const low=term.toLowerCase(); const re=new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
     let count=0;
-    els.forEach(d=>{const ok=d.textContent.toLowerCase().includes(low); d.hidden=!ok; d.open=ok; if(ok){count++; const b=d.querySelector('.el-b'); markIn(b,re); b._marked=true;}});
-    quizItems.forEach(x=>x.hidden=!x.textContent.toLowerCase().includes(low));
+    els.forEach(d=>{const ok=txt(d).includes(low); d.hidden=!ok; d.open=ok; if(ok){count++; const b=d.querySelector('.el-b'); markIn(b,re); b._marked=true;}});
+    quizItems.forEach(x=>x.hidden=!txt(x).includes(low));
     tasks.forEach(t=>{
       t.querySelectorAll('.group').forEach(g=>{let n=g.nextElementSibling,any=false;while(n&&n.matches('details.el')){if(!n.hidden)any=true;n=n.nextElementSibling;}g.hidden=!any;});
       const qz=t.querySelector('.quiz'); if(qz) qz.hidden=![...qz.querySelectorAll('details')].some(x=>!x.hidden);
