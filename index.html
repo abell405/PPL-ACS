@@ -158,6 +158,24 @@ mark{background:#ffe27a;color:#14222f;border-radius:2px}
 .empty{padding:24px;text-align:center;color:var(--muted)}
 .credit{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid var(--line);padding-top:12px}
 #top{position:fixed;right:max(16px,calc(env(safe-area-inset-right,0px) + 16px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:8}
+/* memory aids cram sheet */
+.aid-bar{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;margin:6px 0 4px}
+.aid-bar .refs{margin:0;flex:1 1 320px}
+.aid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));column-gap:12px;align-items:start}
+.aid-grid .group{grid-column:1/-1}
+.group.aid-g{color:var(--accent)}
+.aid .code{background:var(--accent-soft);color:var(--accent);letter-spacing:.04em}
+details.aid>summary{flex-wrap:wrap;row-gap:2px}
+details.aid>summary h3{font-size:13.5px;color:var(--muted)}
+.el-b .aid-l{list-style:none;padding-left:0;margin:8px 0}
+.aid-l li{margin:2px 0;font-size:14px;line-height:1.45}
+.aid-l b{color:var(--accent)}
+.el-b .aid-x{font-size:13.5px;margin:6px 0}
+.aid-src{display:inline-block;margin-top:2px;font:600 11.5px var(--mono);text-decoration:none}
+#aidQuiz[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+.aids.quiz-on .aid-l li,.aids.quiz-on .aid-x{cursor:pointer}
+.aids.quiz-on .aid-m{color:transparent;background:var(--code-bg);border-radius:3px;user-select:none}
+.aids.quiz-on .aid-m.rev{color:inherit;background:none;user-select:auto}
 @media (max-width:900px){
   .wrap{grid-template-columns:minmax(0,1fr)}
   #tocBtn{display:inline-block}
@@ -194,7 +212,7 @@ mark{background:#ffe27a;color:#14222f;border-radius:2px}
 <main id="main">
 <div class="intro">
   <h1>Private Pilot ACS · Area of Operation I</h1>
-  <p>Every Knowledge, Risk Management, and Skill element for Tasks A–H, in ACS order. Tap an element to open it, use search to jump to any reg or topic, and work the checkride questions at the end of each task.</p>
+  <p>Every Knowledge, Risk Management, and Skill element for Tasks A–H, in ACS order. Tap an element to open it, use search to jump to any reg or topic, and work the checkride questions at the end of each task. The Memory Aids cram sheet puts every mnemonic on one page.</p>
   <p>Aircraft-specific numbers are for the Piper Pilot 100i. Verify against the POH for the airplane you test in.</p>
   <div class="legend"><span class="tag k">K · Knowledge</span><span class="tag r">R · Risk Management</span><span class="tag s">S · Skills</span></div>
 </div>
@@ -1290,6 +1308,295 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
 </section>
 
 <!-- ============ OTHER CODES ============ -->
+<section class="task aids" id="aids" data-title="Memory Aids">
+<div class="task-h"><span class="big">M</span><div><span class="eyebrow">Cram sheet</span><h2>Memory Aids</h2></div></div>
+<div class="aid-bar">
+<p class="refs">Every mnemonic in the guide on one page, grouped by task. Turn on quiz mode to hide the meanings, then tap a line to check yourself.</p>
+<button class="btn" id="aidQuiz" aria-pressed="false">Quiz me: hide meanings</button>
+</div>
+<div class="aid-grid">
+
+<div class="group aid-g">A · Pilot Qualifications</div>
+<details class="el aid" id="aid-meeeatc" open><summary><span class="code">MEEEATC</span><h3>Private pilot eligibility · 61.103</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>M</b><span class="aid-m">edical — 3rd class or higher</span></li>
+<li><b>E</b><span class="aid-m">ndorsements from an authorized instructor</span></li>
+<li><b>E</b><span class="aid-m">xperience — 61.109 or Part 141 App. B</span></li>
+<li><b>E</b><span class="aid-m">nglish — read, speak, write, understand</span></li>
+<li><b>A</b><span class="aid-m">ge — 17</span></li>
+<li><b>T</b><span class="aid-m">est — knowledge test, 70% or higher</span></li>
+<li><b>C</b><span class="aid-m">ertificate — student pilot certificate</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-A-K1">PA.I.A.K1 →</a>
+</div></details>
+
+<details class="el aid" id="aid-ppscript" open><summary><span class="code">PPSCRIPT</span><h3>Private pilot privileges · 61.113</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>P</b><span class="aid-m">IC and carry passengers</span></li>
+<li><b>P</b><span class="aid-m">ro rata share of expenses — never for hire</span></li>
+<li><b>S</b><span class="aid-m">alesman — 200 hours</span></li>
+<li><b>C</b><span class="aid-m">harity — 91.146, 500 hours</span></li>
+<li><b>R</b><span class="aid-m">escue operation — reimbursement allowed</span></li>
+<li><b>I</b><span class="aid-m">ncidental to business — no passengers or property for hire</span></li>
+<li><b>P</b><span class="aid-m">roduction flight test — 100 hr PIC in category/class</span></li>
+<li><b>T</b><span class="aid-m">owing — 61.69, 100 hr PIC in category/class</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-A-K2">PA.I.A.K2 →</a>
+</div></details>
+
+<div class="group aid-g">B · Airworthiness Requirements</div>
+<details class="el aid" id="aid-sparrowed" open><summary><span class="code">SPARROWED</span><h3>Documents aboard the airplane</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>S</b><span class="aid-m">upplements — avionics pilot guides</span></li>
+<li><b>P</b><span class="aid-m">lacards</span></li>
+<li><b>A</b><span class="aid-m">irworthiness certificate — doesn't expire; displayed (91.203)</span></li>
+<li><b>R</b><span class="aid-m">egistration — expires every 7 years (47.40)</span></li>
+<li><b>R</b><span class="aid-m">adio operator's license — international only</span></li>
+<li><b>O</b><span class="aid-m">perating handbook (POH/AFM) — 91.9</span></li>
+<li><b>W</b><span class="aid-m">eight and balance</span></li>
+<li><b>E</b><span class="aid-m">xternal data card</span></li>
+<li><b>D</b><span class="aid-m">eviation card — near the compass</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-B-K1a">PA.I.B.K1a →</a>
+</div></details>
+
+<details class="el aid" id="aid-30ftduc" open><summary><span class="code">30-FTDUC</span><h3>When registration ends · 47.41</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>30</b><span class="aid-m"> days after the owner's death</span></li>
+<li><b>F</b><span class="aid-m">oreign registration</span></li>
+<li><b>T</b><span class="aid-m">ransfer of ownership</span></li>
+<li><b>D</b><span class="aid-m">estroyed or scrapped</span></li>
+<li><b>U</b><span class="aid-m">.S. citizenship revoked</span></li>
+<li><b>C</b><span class="aid-m">ancelled</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-B-K1a">PA.I.B.K1a →</a>
+</div></details>
+
+<details class="el aid" id="aid-av1ates" open><summary><span class="code">AV1ATES</span><h3>Required inspections</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>A</b><span class="aid-m">nnual — 12 calendar months (91.409)</span></li>
+<li><b>V</b><span class="aid-m">OR check — 30 days, IFR (91.171)</span></li>
+<li><b>1</b><span class="aid-m">00-hour — for hire or instruction (91.409)</span></li>
+<li><b>A</b><span class="aid-m">ltimeter / static — 24 calendar months, IFR (91.411)</span></li>
+<li><b>T</b><span class="aid-m">ransponder — 24 calendar months (91.413)</span></li>
+<li><b>E</b><span class="aid-m">LT — 12 calendar months; battery at 1 hr use or half its life (91.207)</span></li>
+<li><b>S</b><span class="aid-m">AIBs and ADs (Part 39)</span></li>
+</ul>
+<p class="aid-x"><span class="mn">DEPS</span> VOR check log: <span class="aid-m">Date, Error, Place, Signature</span></p>
+<a class="aid-src" href="#PA-I-B-K1b">PA.I.B.K1b →</a>
+</div></details>
+
+<details class="el aid" id="aid-atomatoflames" open><summary><span class="code">ATOMATOFLAMES</span><h3>Day VFR equipment · 91.205(b)</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>A</b><span class="aid-m">irspeed indicator</span></li>
+<li><b>T</b><span class="aid-m">achometer</span></li>
+<li><b>O</b><span class="aid-m">il pressure gauge</span></li>
+<li><b>M</b><span class="aid-m">anifold pressure gauge (altitude engine)</span></li>
+<li><b>A</b><span class="aid-m">ltimeter</span></li>
+<li><b>T</b><span class="aid-m">emperature gauge (liquid-cooled)</span></li>
+<li><b>O</b><span class="aid-m">il temperature gauge (air-cooled)</span></li>
+<li><b>F</b><span class="aid-m">uel gauge for each tank</span></li>
+<li><b>L</b><span class="aid-m">anding gear position indicator (retractable)</span></li>
+<li><b>A</b><span class="aid-m">nti-collision lights (certificated after March 11, 1996)</span></li>
+<li><b>M</b><span class="aid-m">agnetic compass</span></li>
+<li><b>E</b><span class="aid-m">LT (91.207)</span></li>
+<li><b>S</b><span class="aid-m">afety belts</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-B-K3">PA.I.B.K3 →</a>
+</div></details>
+
+<details class="el aid" id="aid-claps" open><summary><span class="code">CLAPS</span><h3>Night VFR adds · 91.205(c)</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>C</b><span class="aid-m">ircuit breakers or spare fuses</span></li>
+<li><b>L</b><span class="aid-m">anding light (if for hire)</span></li>
+<li><b>A</b><span class="aid-m">nti-collision lights</span></li>
+<li><b>P</b><span class="aid-m">osition (nav) lights</span></li>
+<li><b>S</b><span class="aid-m">ource of electrical power</span></li>
+</ul>
+<p class="aid-x">Also taught as <span class="mn">FLAPS</span> (Fuses for the C).</p>
+<a class="aid-src" href="#PA-I-B-K3">PA.I.B.K3 →</a>
+</div></details>
+
+<details class="el aid" id="aid-mkart" open><summary><span class="code">MKART</span><h3>Inoperative equipment, no MEL · 91.213(d)</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>M</b><span class="aid-m">EL — none approved, so use 91.213(d)</span></li>
+<li><b>K</b><span class="aid-m">OEL — not required by it</span></li>
+<li><b>A</b><span class="aid-m">Ds — not required by one</span></li>
+<li><b>R</b><span class="aid-m">egulations — not required by 91.205 or any other rule</span></li>
+<li><b>T</b><span class="aid-m">CDS / type certificate — not required by it</span></li>
+</ul>
+<p class="aid-x">Then: <span class="aid-m">remove or deactivate, placard "Inoperative," and the pilot decides it's not a hazard.</span></p>
+<a class="aid-src" href="#PA-I-B-K3a">PA.I.B.K3a →</a>
+</div></details>
+
+<div class="group aid-g">C · Weather Information</div>
+<details class="el aid" id="aid-upairs" open><summary><span class="code">UPAIRS</span><h3>Types of fog</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>U</b><span class="aid-m">pslope — moist stable air pushed up terrain; needs wind</span></li>
+<li><b>P</b><span class="aid-m">recipitation-induced — warm rain through cool air</span></li>
+<li><b>A</b><span class="aid-m">dvection — moist air over a colder surface; coastal</span></li>
+<li><b>I</b><span class="aid-m">ce — ice crystals, very cold temperatures</span></li>
+<li><b>R</b><span class="aid-m">adiation — clear, calm nights</span></li>
+<li><b>S</b><span class="aid-m">team — very cold air over warmer water</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-C-K3j">PA.I.C.K3j →</a>
+</div></details>
+
+<div class="group aid-g">D · Cross-Country Flight Planning</div>
+<details class="el aid" id="aid-imsafe" open><summary><span class="code">IMSAFE</span><h3>Fit to fly?</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>I</b><span class="aid-m">llness — 61.53 self-grounding</span></li>
+<li><b>M</b><span class="aid-m">edication — wait 5 × the longest dosing interval</span></li>
+<li><b>S</b><span class="aid-m">tress — acute or chronic</span></li>
+<li><b>A</b><span class="aid-m">lcohol — 8 hours, under 0.04%, no impairment (91.17)</span></li>
+<li><b>F</b><span class="aid-m">atigue — acute or chronic</span></li>
+<li><b>E</b><span class="aid-m">ating / Emotion</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-D-R1">PA.I.D.R1 →</a>
+</div></details>
+
+<details class="el aid" id="aid-nwkraft" open><summary><span class="code">NWKRAFT</span><h3>Preflight action · 91.103</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>N</b><span class="aid-m">OTAMs</span></li>
+<li><b>W</b><span class="aid-m">eather</span></li>
+<li><b>K</b><span class="aid-m">nown ATC delays</span></li>
+<li><b>R</b><span class="aid-m">unway lengths</span></li>
+<li><b>A</b><span class="aid-m">lternatives</span></li>
+<li><b>F</b><span class="aid-m">uel requirements (91.151)</span></li>
+<li><b>T</b><span class="aid-m">akeoff and landing performance</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-D-R3">PA.I.D.R3 →</a>
+</div></details>
+
+<details class="el aid" id="aid-neodd" open><summary><span class="code">NEODD SWEVEN</span><h3>VFR cruising altitudes · 91.159</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>NE ODD</b><span class="aid-m"> — magnetic course 0–179°: odd thousands + 500'</span></li>
+<li><b>SW EVEN</b><span class="aid-m"> — magnetic course 180–359°: even thousands + 500'</span></li>
+</ul>
+<p class="aid-x">Applies <span class="aid-m">above 3,000' AGL.</span></p>
+<a class="aid-src" href="#PA-I-D-K2">PA.I.D.K2 →</a>
+</div></details>
+
+<div class="group aid-g">E · National Airspace System</div>
+<details class="el aid" id="aid-mcprawn" open><summary><span class="code">MCPRAWN</span><h3>Special use airspace</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>M</b><span class="aid-m">OA — VFR may enter; contact ATC</span></li>
+<li><b>C</b><span class="aid-m">ontrolled firing area — not charted</span></li>
+<li><b>P</b><span class="aid-m">rohibited — no flight</span></li>
+<li><b>R</b><span class="aid-m">estricted — permission when active</span></li>
+<li><b>A</b><span class="aid-m">lert — high training volume; see and avoid</span></li>
+<li><b>W</b><span class="aid-m">arning — beyond 3 NM offshore</span></li>
+<li><b>N</b><span class="aid-m">ational security area — voluntary avoidance</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-E-K3">PA.I.E.K3 →</a>
+</div></details>
+
+<details class="el aid" id="aid-vantss" open><summary><span class="code">VANTSS</span><h3>Reasons for TFRs · 91.137+</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>V</b><span class="aid-m">IPs</span></li>
+<li><b>A</b><span class="aid-m">irshows</span></li>
+<li><b>N</b><span class="aid-m">atural disasters</span></li>
+<li><b>T</b><span class="aid-m">heme parks</span></li>
+<li><b>S</b><span class="aid-m">tadiums / sporting events</span></li>
+<li><b>S</b><span class="aid-m">pace operations</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-E-K3">PA.I.E.K3 →</a>
+</div></details>
+
+<div class="group aid-g">F · Performance and Limitations</div>
+<details class="el aid" id="aid-reap" open><summary><span class="code">REAP</span><h3>Spin recovery</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>R</b><span class="aid-m">udder opposite the rotation</span></li>
+<li><b>E</b><span class="aid-m">levator forward — break the stall</span></li>
+<li><b>A</b><span class="aid-m">ilerons neutral</span></li>
+<li><b>P</b><span class="aid-m">ower idle</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-F-K3">PA.I.F.K3 →</a>
+</div></details>
+
+<div class="group aid-g">G · Operation of Systems</div>
+<details class="el aid" id="aid-lhand" open><summary><span class="code">LHAND</span><h3>Engine: Lycoming IO-360</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>L</b><span class="aid-m">ycoming — 180 hp, fuel injected, 360 cu in</span></li>
+<li><b>H</b><span class="aid-m">orizontally opposed</span></li>
+<li><b>A</b><span class="aid-m">ir cooled</span></li>
+<li><b>N</b><span class="aid-m">ormally aspirated</span></li>
+<li><b>D</b><span class="aid-m">irect drive</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-G-K1c">PA.I.G.K1c →</a>
+</div></details>
+
+<div class="group aid-g">H · Human Factors</div>
+<details class="el aid" id="aid-iceflags" open><summary><span class="code">ICE FLAGS</span><h3>Vestibular and visual illusions</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>I</b><span class="aid-m">nversion — climb-to-level feels like tumbling back</span></li>
+<li><b>C</b><span class="aid-m">oriolis — head movement in a prolonged turn</span></li>
+<li><b>E</b><span class="aid-m">levator — updraft feels like a climb</span></li>
+<li><b>F</b><span class="aid-m">alse horizon — sloping clouds or ground lights</span></li>
+<li><b>L</b><span class="aid-m">eans — level after a turn feels like a bank</span></li>
+<li><b>A</b><span class="aid-m">utokinesis — a stationary light seems to move</span></li>
+<li><b>G</b><span class="aid-m">raveyard spiral — descending turn feels level</span></li>
+<li><b>S</b><span class="aid-m">omatogravic — acceleration feels like nose-up</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-H-K1d">PA.I.H.K1d →</a>
+</div></details>
+
+<details class="el aid" id="aid-rfrag" open><summary><span class="code">RFRAG</span><h3>Approach and landing illusions</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>R</b><span class="aid-m">unway width — narrow: fly low · wide: fly high</span></li>
+<li><b>F</b><span class="aid-m">eatureless terrain / black hole — fly low</span></li>
+<li><b>R</b><span class="aid-m">unway slope — upslope: fly low · downslope: fly high</span></li>
+<li><b>A</b><span class="aid-m">tmospheric — rain, haze: fly low · fog: steepen</span></li>
+<li><b>G</b><span class="aid-m">round lighting — bright lights: fly high</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-H-K1k">PA.I.H.K1k →</a>
+</div></details>
+
+<details class="el aid" id="aid-raimi" open><summary><span class="code">RAIMI</span><h3>Hazardous attitudes → antidotes</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>R</b><span class="aid-m">esignation → I'm not helpless.</span></li>
+<li><b>A</b><span class="aid-m">nti-authority → Follow the rules.</span></li>
+<li><b>I</b><span class="aid-m">mpulsivity → Not so fast. Think first.</span></li>
+<li><b>M</b><span class="aid-m">acho → Taking chances is foolish.</span></li>
+<li><b>I</b><span class="aid-m">nvulnerability → It could happen to me.</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-H-R2">PA.I.H.R2 →</a>
+</div></details>
+
+<details class="el aid" id="aid-pave" open><summary><span class="code">PAVE</span><h3>Risk categories</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>P</b><span class="aid-m">ilot</span></li>
+<li><b>A</b><span class="aid-m">ircraft</span></li>
+<li><b>V</b><span class="aid-m"> — enVironment</span></li>
+<li><b>E</b><span class="aid-m">xternal pressures</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-H-K4">PA.I.H.K4 →</a>
+</div></details>
+
+<details class="el aid" id="aid-3p" open><summary><span class="code">3P</span><h3>Risk management loop</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>P</b><span class="aid-m">erceive the hazards</span></li>
+<li><b>P</b><span class="aid-m">rocess — evaluate the risk</span></li>
+<li><b>P</b><span class="aid-m">erform — mitigate, then repeat</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-H-K4">PA.I.H.K4 →</a>
+</div></details>
+
+<details class="el aid" id="aid-decide" open><summary><span class="code">DECIDE</span><h3>Decision model</h3></summary><div class="el-b">
+<ul class="aid-l">
+<li><b>D</b><span class="aid-m">etect that a change has occurred</span></li>
+<li><b>E</b><span class="aid-m">stimate the need to react</span></li>
+<li><b>C</b><span class="aid-m">hoose a desirable outcome</span></li>
+<li><b>I</b><span class="aid-m">dentify actions to get there</span></li>
+<li><b>D</b><span class="aid-m">o the necessary action</span></li>
+<li><b>E</b><span class="aid-m">valuate the effect</span></li>
+</ul>
+<a class="aid-src" href="#PA-I-H-K4">PA.I.H.K4 →</a>
+</div></details>
+
+</div>
+</section>
+
 <section class="task" id="other" data-title="Other ACS Test Codes">
 <div class="task-h"><span class="big">+</span><div><span class="eyebrow">Areas II–XI</span><h2>Other ACS Test Codes</h2></div></div>
 <p class="refs">Selected elements from later Areas of Operation that come up during the oral.</p>
@@ -1436,7 +1743,7 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
       s.appendChild(b); sub.appendChild(s);
     });
     li.appendChild(sub);
-    (['other','regs'].includes(t.id)?tocRef:tocList).appendChild(li);
+    (['aids','other','regs'].includes(t.id)?tocRef:tocList).appendChild(li);
     t._li=li; t._a=a;
   });
 
@@ -1458,6 +1765,27 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
   tasks.forEach(t=>io.observe(t));
 
   const els=[...document.querySelectorAll('details.el')];
+  els.forEach(d=>d._def=d.open);
+
+  // links to an element open it
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('main a[href^="#"]'); if(!a) return;
+    const el=document.getElementById(a.getAttribute('href').slice(1));
+    if(el&&el.matches('details.el')) el.open=true;
+  });
+
+  // memory aids quiz mode: hide meanings, tap a line to reveal
+  const aids=document.getElementById('aids'), aidQuiz=document.getElementById('aidQuiz');
+  aidQuiz.onclick=()=>{
+    const on=aids.classList.toggle('quiz-on');
+    aidQuiz.setAttribute('aria-pressed',on); aidQuiz.textContent=on?'Show meanings':'Quiz me: hide meanings';
+    aids.querySelectorAll('.aid-m.rev').forEach(m=>m.classList.remove('rev'));
+  };
+  aids.addEventListener('click',e=>{
+    if(!aids.classList.contains('quiz-on')) return;
+    const row=e.target.closest('.aid-l li,.aid-x'); if(!row) return;
+    row.querySelectorAll('.aid-m').forEach(m=>m.classList.toggle('rev'));
+  });
   document.getElementById('expand').onclick=()=>els.forEach(d=>d.open=true);
   document.getElementById('collapse').onclick=()=>els.forEach(d=>d.open=false);
   document.getElementById('top').onclick=()=>window.scrollTo({top:0});
@@ -1478,7 +1806,7 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
   function run(){
     const term=q.value.trim(); clear.hidden=!term; unmark();
     if(!term){
-      els.forEach(d=>{d.hidden=false;d.open=false});
+      els.forEach(d=>{d.hidden=false;d.open=d._def});
       quizItems.forEach(x=>x.hidden=false);
       document.querySelectorAll('.group,.quiz,.task,.note,.refs').forEach(x=>x.hidden=false);
       hits.hidden=true; empty.hidden=true; return;
