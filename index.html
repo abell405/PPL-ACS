@@ -176,6 +176,12 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 .aids.quiz-on .aid-l li,.aids.quiz-on .aid-x{cursor:pointer}
 .aids.quiz-on .aid-m{color:transparent;background:var(--code-bg);border-radius:3px;user-select:none}
 .aids.quiz-on .aid-m.rev{color:inherit;background:none;user-select:auto}
+/* more scenarios */
+.quiz details.more-sc{background:none;border:1px dashed var(--line);margin-top:10px}
+.quiz details.more-sc>summary{color:var(--sky);font-size:13.5px}
+.quiz details.more-sc[open]>summary{border-bottom:1px dashed var(--line);margin-bottom:6px}
+.quiz details.more-sc>details{margin:6px 8px}
+.quiz details.more-sc>details:last-child{margin-bottom:8px}
 /* practice mode */
 #prBtn{border-color:var(--sky);color:var(--sky)}
 .pr-ov{position:fixed;inset:0;z-index:30;background:rgba(14,22,32,.55);display:flex;align-items:center;justify-content:center;padding:16px}
@@ -422,6 +428,12 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 <details><summary>Name the 61.103 eligibility requirements.</summary><p>MEEEATC: Medical, Endorsements, Experience, English, Age 17, Test (70%+), student pilot Certificate.</p></details>
 <details><summary>You are 45 with a 2nd class medical issued in March 2025. What privileges do you have in April 2026?</summary><p>Over 40, 2nd class privileges last 12 calendar months (through March 31, 2026). In April 2026 it is valid for 3rd class privileges, which last 24 calendar months (through March 31, 2027).</p></details>
 <details><summary>What is the difference between a special issuance and a SODA?</summary><p>Special issuance is time-limited and re-evaluated, for conditions that can change. A SODA doesn't expire and is for static conditions.</p></details>
+<details class="more-sc"><summary>More scenarios (4)</summary>
+<details><summary><span class="sc">SCENARIO</span>Your last flight review was June 15, 2024. Today is July 3, 2026. Can you rent the airplane and fly solo?</summary><p>No. A flight review is good through the end of the 24th calendar month (61.56), so it ran out June 30, 2026. Fly with an instructor for a flight review: at least 1 hour of ground and 1 hour of flight.</p></details>
+<details><summary><span class="sc">SCENARIO</span>Your last night full-stop landings were 100 days ago. Sunset is 1910 and you want to take a friend up from 1930 to 2030. Legal?</summary><p>Not the whole flight. Passengers at night need 3 takeoffs and landings to a full stop between 1 hour after sunset and 1 hour before sunrise in the preceding 90 days (61.57(b)). Land with your friend by 2010, or regain currency solo after 2010 first.</p></details>
+<details><summary><span class="sc">SCENARIO</span>You took an OTC antihistamine with a 6-hour dosing interval at 0700. Can you fly at 1500?</summary><p>No. Wait at least 5 × the dosing interval: 30 hours, so not until 1300 tomorrow. Under 61.53 you can't fly with a condition or medication that could make you unsafe.</p></details>
+<details><summary><span class="sc">SCENARIO</span>Your checkride is tomorrow and you realize your medical certificate isn't in your wallet. What must you have with you to act as PIC?</summary><p>Your pilot certificate, a medical certificate (or BasicMed documents), and government-issued photo ID, in physical possession or readily accessible (61.3). Find the medical or get a replacement before you fly.</p></details>
+</details>
 </div>
 </section>
 
@@ -542,6 +554,12 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 <details><summary>The 100-hour was due at 600.0 tach. You overfly to 607.5 to reach the shop. When is the next one due?</summary><p>700.0. The 10-hour allowance only gets you to the inspection; the overflown time counts toward the next interval.</p></details>
 <details><summary>Who is responsible for airworthiness: you or the owner?</summary><p>Both. The owner/operator maintains it in an airworthy condition (91.403); the PIC determines it's airworthy before each flight (91.7).</p></details>
 <details><summary>What's the difference between an AD and an SAIB?</summary><p>An AD is regulatory and mandatory. An SAIB is informational with recommendations.</p></details>
+<details class="more-sc"><summary>More scenarios (4)</summary>
+<details><summary><span class="sc">SCENARIO</span>On preflight the right fuel gauge reads empty, but you can see the tank is full. Day VFR flight. Go?</summary><p>No. 91.205(b) requires a fuel gauge for each tank, so you can't defer it under 91.213(d). Have it fixed, or get a special flight permit to ferry it.</p></details>
+<details><summary><span class="sc">SCENARIO</span>The ELT was removed yesterday for a battery replacement and isn't back yet. Can you fly?</summary><p>Yes, under 91.207, if the removal is recorded in the maintenance records, a placard reading "ELT not installed" is in view of the pilot, and it's been no more than 90 days since it was removed.</p></details>
+<details><summary><span class="sc">SCENARIO</span>You rent the airplane and find a main tire worn down to the cord. You're a private pilot. Can you change it?</summary><p>Changing a tire is preventive maintenance (Part 43 App. A), which a private pilot may do on an airplane they own or operate (43.3(g)), with a logbook entry (43.9). A rental's owner will almost always want their mechanic to do it, so ground the airplane and call maintenance.</p></details>
+<details><summary><span class="sc">SCENARIO</span>The logs show a recurring AD due every 100 hours. It was last done 105 hours ago. The airplane isn't used for hire. Airworthy?</summary><p>No. AD compliance is mandatory (Part 39), and the 100-hour interval in the AD applies whether or not the airplane is used for hire. It isn't airworthy until the AD is complied with.</p></details>
+</details>
 </div>
 </section>
 
@@ -780,6 +798,12 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 <details><summary>Decode the winds aloft group 7325+05.</summary><p>230° true at 125 kt, temperature +5 °C (73 − 50 = 23 → 230°, 25 + 100 = 125 kt).</p></details>
 <details><summary>Which AIRMET covers moderate icing? Sustained surface winds over 30 kt?</summary><p>Zulu for icing. Tango for turbulence and strong surface winds.</p></details>
 <details><summary>What three things does a thunderstorm need?</summary><p>Lifting action, sufficient moisture, and an unstable lapse rate.</p></details>
+<details class="more-sc"><summary>More scenarios (4)</summary>
+<details><summary><span class="sc">SCENARIO</span>The TAF for your destination at ETA: 4SM -RA BKN015 TEMPO 2SM BR OVC008. Go?</summary><p>The TEMPO conditions (800 overcast, 2 SM) are below basic VFR, and likely below your personal minimums. Delay, pick a destination with better weather, or plan a clear alternate and a turn-back point.</p></details>
+<details><summary><span class="sc">SCENARIO</span>A Convective SIGMET covers an area 40 NM north of your route, moving south at 20 kt. What does that mean for you?</summary><p>It warns of thunderstorms (severe, embedded, or a line) that will reach your route in about 2 hours. Leave well before, take a route farther away, or wait. Keep at least 20 NM from severe storms.</p></details>
+<details><summary><span class="sc">SCENARIO</span>VFR at 5,500' in light rain, the OAT drops to 0 °C and ice starts forming on the windshield. What do you do?</summary><p>You're picking up structural ice, and the P100i isn't approved for flight into known icing. Pitot heat and defrost on, turn around or descend toward warmer air right away, tell ATC, and land.</p></details>
+<details><summary><span class="sc">SCENARIO</span>Destination METAR: 27015G25KT. The only runway is 36. Concern?</summary><p>The wind is 90° to the runway, so all of it is crosswind: 15 kt gusting 25. That's beyond the P100i's 17 kt maximum demonstrated crosswind. Divert to a runway more into the wind.</p></details>
+</details>
 </div>
 </section>
 
@@ -878,6 +902,12 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 <details><summary>TC 090°, WCA +8°, variation 6°W, deviation −2°. Compass heading?</summary><p>TH 098 → MH 104 (west is best, add) → CH 102.</p></details>
 <details><summary>Depart 1430 EDT, 1+45 flight. ETA in Zulu?</summary><p>1430 EDT = 1830Z; + 1:45 = 2015Z (1615 EDT).</p></details>
 <details><summary>What's in 91.103 preflight action?</summary><p>NWKRAFT: NOTAMs, weather, known ATC delays, runway lengths, alternatives, fuel, takeoff/landing performance.</p></details>
+<details class="more-sc"><summary>More scenarios (4)</summary>
+<details><summary><span class="sc">SCENARIO</span>25 NM from your destination, visibility drops under lowering clouds. What do you do?</summary><p>Divert early. Pick the nearest suitable airport, turn toward it first, then estimate heading, distance, time, and fuel. Tell ATC or Flight Service and update your flight plan.</p></details>
+<details><summary><span class="sc">SCENARIO</span>You planned 2.0 hours at 10 GPH (48 gal usable), day VFR. A headwind adds 30 minutes. Is fuel legal?</summary><p>25 gal for the trip + 5 gal for the 30-minute day reserve (91.151) = 30 gal of 48 usable, so it's legal. At night the reserve is 45 minutes (7.5 gal). Most pilots keep at least an hour for themselves.</p></details>
+<details><summary><span class="sc">SCENARIO</span>You land at a non-towered field 20 minutes after your VFR flight plan ETA, and there's no cell signal. What's the urgency?</summary><p>Search and rescue starts if you haven't closed within 30 minutes of ETA. Close it right away by radio (Flight Service or an RCO) or a landline, or ask another aircraft to relay.</p></details>
+<details><summary><span class="sc">SCENARIO</span>Your tablet overheats and shuts down mid-flight on a summer day. Plan?</summary><p>Aviate first. Navigate with the G3X and GNX 375, a backup device, or a paper chart and your nav log. Keep the tablet out of direct sun and let it cool before relying on it again.</p></details>
+</details>
 </div>
 </section>
 
@@ -971,6 +1001,12 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 <details><summary>Class E below 10,000' MSL: weather minimums?</summary><p>3 SM; 500 below, 1,000 above, 2,000 horizontal.</p></details>
 <details><summary>Can you do Special VFR at night as a private pilot?</summary><p>No. Night SVFR needs an instrument rating and an IFR-equipped aircraft.</p></details>
 <details><summary>Where is Mode C / ADS-B Out required?</summary><p>Class A, B, C; within the 30 NM veil; above Class B/C up to 10,000' MSL; at/above 10,000' MSL (excluding at/below 2,500' AGL); Gulf of Mexico Class E at/above 3,000' within 12 NM.</p></details>
+<details class="more-sc"><summary>More scenarios (4)</summary>
+<details><summary><span class="sc">SCENARIO</span>Approach answers your request with "Remain clear of the Class Bravo, squawk 4512." Can you enter Class B?</summary><p>No. You need the words "cleared into the Class Bravo." A squawk code and radar contact aren't a clearance.</p></details>
+<details><summary><span class="sc">SCENARIO</span>You arrive at a Class D airport after the tower has closed. Which airspace is it now, and how do you talk?</summary><p>Check the Chart Supplement: it usually becomes Class E or G when the tower closes. Self-announce on the CTAF, normally the tower frequency.</p></details>
+<details><summary><span class="sc">SCENARIO</span>Day VFR in Class G at 1,000' AGL, visibility 2 SM, staying clear of clouds. Legal?</summary><p>Yes. Below 1,200' AGL in Class G during the day, the minimums are 1 SM and clear of clouds. But low scud and 2 SM leave little room for terrain, towers, or a closing ceiling, so it's a poor plan.</p></details>
+<details><summary><span class="sc">SCENARIO</span>A VIP TFR NOTAM covers part of your route. How do you handle it?</summary><p>Read the full NOTAM. The inner core is usually closed to VFR. The outer ring often requires a flight plan, a discrete code, and two-way communication. The simplest option is to route around it.</p></details>
+</details>
 </div>
 </section>
 
@@ -1117,6 +1153,12 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
 <details><summary>Why is V<sub>O</sub> lower when the airplane is light?</summary><p>Less weight means less lift needed, so a lower AOA. An abrupt deflection can then reach a high load before the wing stalls; a lower speed keeps the stall ahead of the limit load.</p></details>
 <details><summary>Forward vs. aft CG: which stalls at a higher speed?</summary><p>Forward. More tail-down force means the wing flies at a higher AOA.</p></details>
 <details><summary>What conditions make wake turbulence strongest?</summary><p>Heavy, clean, slow.</p></details>
+<details class="more-sc"><summary>More scenarios (4)</summary>
+<details><summary><span class="sc">SCENARIO</span>Two adults and full fuel, then you add 100 lb of bags in the baggage area. What changes?</summary><p>Weight goes up and the CG moves aft. Check both weight and CG for takeoff and landing. An aft CG makes the airplane less stable and stall recovery harder.</p></details>
+<details><summary><span class="sc">SCENARIO</span>You're solo at about 2,000 lb and hit moderate turbulence. What speed do you slow to?</summary><p>V<sub>O</sub> drops with weight: 113 × √(2,000 ÷ 2,550) ≈ 100 KIAS. Slow to about 100 KIAS or less, not the 113 published at max gross.</p></details>
+<details><summary><span class="sc">SCENARIO</span>The POH shows a 1,600' ground roll. The runway is 2,200' of grass, slightly uphill, on a hot day. Go?</summary><p>Grass, upslope, and heat all lengthen the roll beyond the chart. Set an abort point: if you aren't at about 70% of liftoff speed by the runway's halfway point, abort. Better yet, wait for cooler air or lighten the load.</p></details>
+<details><summary><span class="sc">SCENARIO</span>Frost covers the wings on a cold morning and your passengers are in a hurry. Can you take off?</summary><p>No. Frost roughens the wing: higher stall speed, up to 30% less lift, and up to 40% more drag. Remove all of it before flight.</p></details>
+</details>
 </div>
 </section>
 
@@ -1264,6 +1306,12 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
 <details><summary>Why does the engine keep running with no electrical power?</summary><p>The magnetos are engine-driven and the engine-driven fuel pump supplies fuel.</p></details>
 <details><summary>Total, usable, and unusable fuel in the P100i?</summary><p>50 total, 48 usable, 2 unusable gallons.</p></details>
 <details><summary>Static port blocked, then you descend. What do ASI, altimeter, and VSI show?</summary><p>ASI reads high (faster than actual), altimeter frozen, VSI zero.</p></details>
+<details class="more-sc"><summary>More scenarios (4)</summary>
+<details><summary><span class="sc">SCENARIO</span>In cruise, oil pressure starts dropping and oil temperature is rising. What do you suspect and do?</summary><p>Likely oil loss. Reduce power, head for the nearest airport, and land as soon as possible. Be ready for an engine failure: best glide 76 KIAS, landing spot picked.</p></details>
+<details><summary><span class="sc">SCENARIO</span>On downwind the flap handle moves but the flaps don't extend. What changes for landing?</summary><p>Plan a no-flap landing: a higher approach speed, a flatter attitude, and a longer landing distance. Pick a long runway and fly a wider pattern.</p></details>
+<details><summary><span class="sc">SCENARIO</span>The G3X PFD goes dark in VFR cruise. What do you fly with, and for how long?</summary><p>Fly by outside references and use the G5 standby, which has its own AHRS, air data, and up to 4 hours of battery. Check breakers, then land as soon as practical.</p></details>
+<details><summary><span class="sc">SCENARIO</span>Autopilot on, left tank shows 8 gal and right 20 gal. Any problem?</summary><p>The imbalance is 12 gal, over the 10 gal autopilot limit (POH 2-18). Switch to the fuller tank: electric pump on, check pressure, switch, check, pump off, check.</p></details>
+</details>
 </div>
 </section>
 
@@ -1385,6 +1433,12 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
 <details><summary><span class="sc">SCENARIO</span>Night approach over water to a well-lit runway with no lights around it. Which illusion and what's the risk?</summary><p>Black hole. You feel higher than you are and tend to fly a dangerously low approach. Use the VGSI and a stabilized approach.</p></details>
 <details><summary>Name the four types of hypoxia with an example each.</summary><p>Hypoxic (altitude), hypemic (CO), stagnant (high G), histotoxic (alcohol).</p></details>
 <details><summary>Give the antidote for "macho."</summary><p>Taking chances is foolish.</p></details>
+<details class="more-sc"><summary>More scenarios (4)</summary>
+<details><summary><span class="sc">SCENARIO</span>You've been awake since 0400, it's 2100, and your passenger needs to get home tonight. Go?</summary><p>No. That's fatigue (IMSAFE) plus external pressure. Get a hotel or another ride and fly in the morning.</p></details>
+<details><summary><span class="sc">SCENARIO</span>At 5,500', a nervous passenger feels lightheaded with tingling fingers. Hypoxia?</summary><p>Unlikely at 5,500'. It sounds like hyperventilation. Have them slow their breathing (talking helps) and reassure them. Land if it doesn't improve.</p></details>
+<details><summary><span class="sc">SCENARIO</span>You inadvertently fly into a cloud and feel like you're turning left. What do you do?</summary><p>Trust the instruments, not your body. Level the wings on the attitude indicator, make a standard-rate 180° turn back toward VMC, and ask ATC for help.</p></details>
+<details><summary><span class="sc">SCENARIO</span>The forecast said VFR, but the weather ahead keeps getting worse and you keep pressing on. What's happening?</summary><p>Confirmation bias: you're discounting what you see because the forecast said otherwise. Believe the weather you see. Turn around or divert while you still can.</p></details>
+</details>
 </div>
 </section>
 
@@ -1875,7 +1929,7 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
     studied.forEach(t=>{
       t._items=[];
       t.querySelectorAll('details.el').forEach(d=>add(d,d.id,t,d.querySelector('summary')));
-      t.querySelectorAll('.quiz details').forEach(d=>{const sm=d.querySelector('summary'); add(d,'q-'+t.id+'-'+hash(sm.textContent),t,sm);});
+      t.querySelectorAll('.quiz details:not(.more-sc)').forEach(d=>{const sm=d.querySelector('summary'); add(d,'q-'+t.id+'-'+hash(sm.textContent),t,sm);});
       const c=document.createElement('span'); c.className='pm-c'; t._a.appendChild(c); t._count=c;
     });
     function add(d,key,t,sm){
@@ -1928,6 +1982,7 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
       document.querySelectorAll('details.el').forEach(d=>{d.hidden=true;});
       document.querySelectorAll('.quiz details').forEach(d=>{d.hidden=true;});
       items.forEach(it=>{if(state[it.key]==='rev'){it.d.hidden=false; if(it.d.matches('details.el')) it.d.open=true;}});
+      fitMore(true);
       tasks.forEach(t=>{
         t.querySelectorAll('.group').forEach(g=>{let n=g.nextElementSibling,any=false;while(n&&n.matches('details.el')){if(!n.hidden)any=true;n=n.nextElementSibling;}g.hidden=!any;});
         let anyQ=false;
@@ -2043,7 +2098,9 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
 
   // search
   const q=document.getElementById('q'), hits=document.getElementById('hits'), clear=document.getElementById('clear'), empty=document.getElementById('empty');
-  const quizItems=[...document.querySelectorAll('.quiz details')];
+  const quizItems=[...document.querySelectorAll('.quiz details:not(.more-sc)')];
+  const moreSc=[...document.querySelectorAll('details.more-sc')];
+  const fitMore=open=>moreSc.forEach(w=>{const any=[...w.querySelectorAll('details')].some(x=>!x.hidden); w.hidden=!any; if(open!==undefined) w.open=open&&any;});
   els.forEach(d=>d._html=d.querySelector('.el-b').innerHTML);
   const txt=d=>[...d.children].filter(c=>!c.classList.contains('pm')).map(c=>c.textContent).join(' ').toLowerCase();
   function unmark(){els.forEach(d=>{const b=d.querySelector('.el-b'); if(b._marked){b.innerHTML=d._html;b._marked=false;}});}
@@ -2059,14 +2116,14 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
     const term=q.value.trim(); clear.hidden=!term; unmark();
     if(!term){
       els.forEach(d=>{d.hidden=false;d.open=d._def});
-      quizItems.forEach(x=>x.hidden=false);
+      quizItems.forEach(x=>x.hidden=false); moreSc.forEach(w=>{w.hidden=false;w.open=false;});
       document.querySelectorAll('.group,.quiz,.task,.note,.refs').forEach(x=>x.hidden=false);
       hits.hidden=true; empty.hidden=true; return;
     }
     const low=term.toLowerCase(); const re=new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
     let count=0;
     els.forEach(d=>{const ok=txt(d).includes(low); d.hidden=!ok; d.open=ok; if(ok){count++; const b=d.querySelector('.el-b'); markIn(b,re); b._marked=true;}});
-    quizItems.forEach(x=>x.hidden=!txt(x).includes(low));
+    quizItems.forEach(x=>x.hidden=!txt(x).includes(low)); fitMore(true);
     tasks.forEach(t=>{
       t.querySelectorAll('.group').forEach(g=>{let n=g.nextElementSibling,any=false;while(n&&n.matches('details.el')){if(!n.hidden)any=true;n=n.nextElementSibling;}g.hidden=!any;});
       const qz=t.querySelector('.quiz'); if(qz) qz.hidden=![...qz.querySelectorAll('details')].some(x=>!x.hidden);
