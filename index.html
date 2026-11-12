@@ -176,6 +176,18 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 .aids.quiz-on .aid-l li,.aids.quiz-on .aid-x{cursor:pointer}
 .aids.quiz-on .aid-m{color:transparent;background:var(--code-bg);border-radius:3px;user-select:none}
 .aids.quiz-on .aid-m.rev{color:inherit;background:none;user-select:auto}
+/* worked examples */
+details.ex{border:1px solid var(--line);border-left:3px solid var(--sky);border-radius:0 8px 8px 0;margin:12px 0;background:var(--bg)}
+details.ex>summary{cursor:pointer;padding:9px 12px;font-weight:600;color:var(--sky);font-size:14px}
+.ex-b{padding:0 14px 12px}
+.ex-b>*:first-child{margin-top:4px}
+.ex-note{font-size:13px;color:var(--muted)}
+.ex-steps{margin:8px 0;padding-left:22px}
+.ex-steps li{margin:6px 0}
+.ex-t td.num,.ex-t th{white-space:nowrap}
+.ex-t td.num{text-align:right}
+.ex-sum td{font-weight:600;background:var(--code-bg)}
+@media (max-width:600px){.ex-b{padding:0 10px 10px}.ex-t{font-size:12.5px}.ex-t th,.ex-t td{padding:5px 6px}.ex-t td:first-child{min-width:7.5em}}
 /* more scenarios */
 .quiz details.more-sc{background:none;border:1px dashed var(--line);margin-top:10px}
 .quiz details.more-sc>summary{color:var(--sky);font-size:13.5px}
@@ -893,7 +905,18 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 <details class="el s" id="PA-I-D-S1"><summary><span class="code">PA.I.D.S1</span><h3>Prepare and explain a cross-country plan with a risk analysis to the first fuel stop</h3></summary><div class="el-b"><p>Use real-time weather.</p></div></details>
 <details class="el s" id="PA-I-D-S2"><summary><span class="code">PA.I.D.S2</span><h3>Apply current charts, Chart Supplements, NOTAMs, and publications</h3></summary><div class="el-b"><p>Sectionals and Chart Supplements are on a <b>56-day</b> cycle.</p></div></details>
 <details class="el s" id="PA-I-D-S3"><summary><span class="code">PA.I.D.S3</span><h3>Create a navigation plan and simulate filing a VFR flight plan</h3></summary><div class="el-b"><p>Nav log plus a filed (or simulated) flight plan.</p></div></details>
-<details class="el s" id="PA-I-D-S4"><summary><span class="code">PA.I.D.S4</span><h3>Recalculate fuel reserves in an evaluator scenario</h3></summary><div class="el-b"><p>Rework time and burn with the new winds or route.</p></div></details>
+<details class="el s" id="PA-I-D-S4"><summary><span class="code">PA.I.D.S4</span><h3>Recalculate fuel reserves in an evaluator scenario</h3></summary><div class="el-b"><p>Rework time and burn with the new winds or route.</p>
+<details class="ex"><summary>Worked example: stronger headwind en route</summary><div class="ex-b">
+<p class="ex-note">The plan is the POH Section 5 flight planning example: 314 NM at 6,000', 65% power, 9.5 GPH, 117 kt TAS (POH 5-3 to 5-8).</p>
+<p><b>Plan:</b> 1.3 gal for start and taxi, 2 gal to climb, 22.8 gal in cruise (282 NM), 1.9 gal to descend. Total 26.7 gal. From 48 gal usable, you'd land with about 20 gal (over 2 hours).</p>
+<p><b>What happens:</b> 140 NM into the cruise, your groundspeed is 97 kt, not 117.</p>
+<ol class="ex-steps">
+<li><b>Fuel used so far.</b> Cruise time so far = 140 ÷ 97 = 1.44 hr × 9.5 = 13.7 gal. Plus taxi and climb: 1.3 + 2 + 13.7 = <b>17.0 gal</b> used, so <b>31.0 gal</b> left. Check it against the fuel totalizer and gauges.</li>
+<li><b>Fuel still needed.</b> 282 − 140 = 142 NM left in cruise ÷ 97 kt = 1.46 hr × 9.5 = 13.9 gal, plus 1.9 gal to descend = <b>15.8 gal</b>.</li>
+<li><b>Fuel at landing.</b> 31.0 − 15.8 ≈ <b>15 gal</b>, about 1 hr 36 min at 9.5 GPH. That's more than the 30-minute day reserve (4.75 gal) or 45-minute night reserve (7.1 gal) in 91.151. Keep going and update your ETA.</li>
+<li><b>Then the evaluator adds a 60 NM diversion.</b> 60 ÷ 97 = 0.62 hr × 9.5 = 5.9 gal more, so you'd land with about 9 gal (59 min). Still legal day or night, but under a 1-hour personal minimum. Plan a fuel stop.</li>
+</ol>
+</div></details></div></details>
 <details class="el s" id="PA-I-D-S5"><summary><span class="code">PA.I.D.S5</span><h3>Use an EFB, if applicable</h3></summary><div class="el-b"><p>Show route, weather, NOTAMs, and performance on the EFB.</p></div></details>
 
 <div class="quiz"><h4>Checkride questions</h4>
@@ -1072,7 +1095,18 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 </div></details>
 
 <details class="el k" id="PA-I-F-K2f"><summary><span class="code">PA.I.F.K2f</span><h3>Weight and balance</h3></summary><div class="el-b">
-<ul><li><b>Weight</b> — the force</li><li><b>Arm / station</b> — distance from datum</li><li><b>Moment</b> = weight × arm</li><li><b>Datum</b> — reference point. P100i: tip of the spinner (POH 6-4)</li></ul>
+<ul><li><b>Weight</b> — the force</li><li><b>Arm / station</b> — distance from datum</li><li><b>Moment</b> = weight × arm</li><li><b>Datum</b> — reference point. P100i: 78.4" ahead of the wing leading edge, at the inboard intersection of the straight and tapered sections (POH 2-5)</li></ul>
+<h4 class="sub">P100i loading stations (POH 6-9)</h4>
+<div class="tbl-w"><table><tr><th>Station</th><th>Arm (in aft of datum)</th></tr>
+<tr><td>Front seats</td><td class="num">80.5</td></tr>
+<tr><td>Rear seat</td><td class="num">118.1</td></tr>
+<tr><td>Fuel (48 gal usable, 6 lb/gal)</td><td class="num">95.0</td></tr></table></div>
+<p>Maximum 3 occupants (POH 2-19). There is no baggage station on the loading form. Start, taxi, and run-up allowance: −8 lb at 95.0.</p>
+<h4 class="sub">CG limits (POH 2-5)</h4>
+<div class="tbl-w"><table><tr><th>Weight</th><th>Forward</th><th>Aft</th></tr>
+<tr><td class="num">2,550 lb</td><td class="num">88.6</td><td class="num">93.0</td></tr>
+<tr><td class="num">2,050 lb and less</td><td class="num">82.0</td><td class="num">93.0</td></tr></table></div>
+<p>Straight-line variation between the points: the forward limit moves aft about 0.013" for every pound above 2,050.</p>
 <span class="formula">CG = total moment ÷ total weight</span>
 </div></details>
 
@@ -1144,8 +1178,57 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
 <details class="el r" id="PA-I-F-R3"><summary><span class="code">PA.I.F.R3</span><h3>Calculated vs. actual performance</h3></summary><div class="el-b"><p>Charts assume a new airplane and expert technique. Add a margin (many pilots use 50%) and set an abort point.</p></div></details>
 
 <div class="group s">Skills</div>
-<details class="el s" id="PA-I-F-S1"><summary><span class="code">PA.I.F.S1</span><h3>Compute W&amp;B, correct out-of-CG loading, and check limits for all phases</h3></summary><div class="el-b"><p>Check takeoff and landing (fuel burned) CG.</p></div></details>
-<details class="el s" id="PA-I-F-S2"><summary><span class="code">PA.I.F.S2</span><h3>Use the airplane performance charts, tables, and data</h3></summary><div class="el-b"><p>Takeoff, climb, cruise, landing.</p></div></details>
+<details class="el s" id="PA-I-F-S1"><summary><span class="code">PA.I.F.S1</span><h3>Compute W&amp;B, correct out-of-CG loading, and check limits for all phases</h3></summary><div class="el-b"><p>Check takeoff and landing (fuel burned) CG.</p>
+<details class="ex"><summary>Worked example: three aboard, full fuel</summary><div class="ex-b">
+<p class="ex-note">Uses the basic empty weight from the POH sample loading problem (1,582.0 lb at 86.5"). Use your airplane's current numbers from its weight and balance record.</p>
+<p><b>Load:</b> pilot 190 lb and front passenger 170 lb, a 160-lb rear passenger, full fuel (48 gal).</p>
+<div class="tbl-w"><table class="ex-t"><tr><th>Item</th><th>Weight<br>(lb)</th><th>Arm<br>(in)</th><th>Moment<br>(in-lb)</th></tr>
+<tr><td>Basic empty weight</td><td class="num">1,582.0</td><td class="num">86.5</td><td class="num">136,843</td></tr>
+<tr><td>Front seats (190 + 170)</td><td class="num">360.0</td><td class="num">80.5</td><td class="num">28,980</td></tr>
+<tr><td>Rear seat</td><td class="num">160.0</td><td class="num">118.1</td><td class="num">18,896</td></tr>
+<tr><td>Fuel (48 gal × 6)</td><td class="num">288.0</td><td class="num">95.0</td><td class="num">27,360</td></tr>
+<tr class="ex-sum"><td>Ramp</td><td class="num">2,390.0</td><td class="num">88.74</td><td class="num">212,079</td></tr>
+<tr><td>Start, taxi, run-up</td><td class="num">−8.0</td><td class="num">95.0</td><td class="num">−760</td></tr>
+<tr class="ex-sum"><td>Takeoff</td><td class="num">2,382.0</td><td class="num">88.71</td><td class="num">211,319</td></tr>
+<tr><td>Fuel burned (25 gal)</td><td class="num">−150.0</td><td class="num">95.0</td><td class="num">−14,250</td></tr>
+<tr class="ex-sum"><td>Landing</td><td class="num">2,232.0</td><td class="num">88.29</td><td class="num">197,069</td></tr></table></div>
+<ol class="ex-steps">
+<li><b>Moments.</b> Weight × arm for each line, e.g. 360 × 80.5 = 28,980.</li>
+<li><b>CG.</b> Total moment ÷ total weight: 211,319 ÷ 2,382 = <b>88.71"</b> at takeoff.</li>
+<li><b>Weight.</b> 2,382 lb takeoff is under the 2,550 lb max (ramp 2,390 is under 2,558).</li>
+<li><b>CG limits at 2,382 lb.</b> Forward limit = 82.0 + (2,382 − 2,050) × 0.0132 = <b>86.4"</b>. Aft limit 93.0". 88.71 is inside.</li>
+<li><b>Landing.</b> After 25 gal burned: 2,232 lb at <b>88.29"</b>. Forward limit there is 84.4". Still inside. The CG moves slightly forward as fuel burns, because the fuel (95.0") sits aft of the CG.</li>
+</ol>
+<h4 class="sub">Out of limits: fix it</h4>
+<p>Same airplane with three 230-lb adults (two up front, one in back) and full fuel: ramp weight is <b>2,560 lb</b>, 2 lb over the 2,558 lb max ramp.</p>
+<ol class="ex-steps">
+<li><b>Take off fuel, not people.</b> Fill to 46 gal instead of 48: 12 lb less, so ramp is 2,548 lb and takeoff 2,540 lb.</li>
+<li><b>Recheck CG.</b> Takeoff moment 226,496 ÷ 2,540 = <b>89.17"</b>. Forward limit at 2,540 lb is 88.5", aft 93.0". Inside, but close to the forward limit.</li>
+<li><b>Recheck fuel.</b> 46 gal still has to cover the trip plus reserve. If it doesn't, the trip needs a fuel stop or one fewer passenger.</li>
+</ol>
+</div></details></div></details>
+<details class="el s" id="PA-I-F-S2"><summary><span class="code">PA.I.F.S2</span><h3>Use the airplane performance charts, tables, and data</h3></summary><div class="el-b"><p>Takeoff, climb, cruise, landing.</p>
+<details class="ex"><summary>Worked example: takeoff and landing distance</summary><div class="ex-b">
+<p class="ex-note">Numbers match the example lines printed on POH Figures 5-11 and 5-43, so you can trace them on the real charts.</p>
+<h4 class="sub">Takeoff (Figure 5-11, flaps up ground roll)</h4>
+<p><b>Departure:</b> field elevation 1,850', altimeter 29.77, 23 °C, wind 300° at 9 kt, runway 27. Takeoff weight 2,400 lb.</p>
+<ol class="ex-steps">
+<li><b>Pressure altitude.</b> 1,850 + (29.92 − 29.77) × 1,000 = <b>2,000'</b>.</li>
+<li><b>Wind components.</b> Wind is 30° off the runway. Headwind = 9 × cos 30° ≈ <b>8 kt</b>. Crosswind = 9 × sin 30° ≈ 4.5 kt, well under the 17 kt demonstrated.</li>
+<li><b>Read the chart.</b> Start at 23 °C on the bottom scale, go up to the 2,000' pressure altitude line, then right to the reference line. Follow the guide lines down to 2,400 lb, go right to the wind reference line, follow the headwind guide lines to 8 kt, and read the ground roll.</li>
+<li><b>Result:</b> about <b>1,073'</b> ground roll. Clearing a 50' obstacle takes more: use Figure 5-7.</li>
+</ol>
+<h4 class="sub">Landing (Figure 5-43, landing ground roll)</h4>
+<p><b>Destination:</b> field elevation 2,320', altimeter 29.74, 21 °C, wind 210° at 6 kt, runway 18. Landing weight 2,240 lb.</p>
+<ol class="ex-steps">
+<li><b>Pressure altitude.</b> 2,320 + (29.92 − 29.74) × 1,000 = <b>2,500'</b>.</li>
+<li><b>Headwind.</b> 6 × cos 30° ≈ <b>5 kt</b>.</li>
+<li><b>Read the chart</b> the same way: 21 °C → 2,500' → weight 2,240 lb → 5 kt headwind.</li>
+<li><b>Result:</b> about <b>820'</b> ground roll.</li>
+</ol>
+<h4 class="sub">What the charts don't include</h4>
+<p>Both charts assume a paved, level, dry runway and the technique listed on the chart (full power before brake release; power-off approach, 40° flaps, maximum braking). Grass, an upslope, a wet runway, a tailwind, or less-than-perfect technique all add distance the chart doesn't show, so leave a generous margin.</p>
+</div></details></div></details>
 
 <div class="quiz"><h4>Checkride questions</h4>
 <details><summary><span class="sc">SCENARIO</span>Field elevation 1,000', altimeter 29.82, temp 35 °C. What's the pressure altitude, and what does the heat mean?</summary><p>PA = (29.92 − 29.82) × 1,000 + 1,000 = 1,100'. ISA at 1,100' ≈ 13 °C, so it's 22 °C hotter than standard; density altitude is much higher (roughly 3,700'). Expect longer takeoff and weaker climb.</p></details>
@@ -1154,7 +1237,7 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
 <details><summary>Forward vs. aft CG: which stalls at a higher speed?</summary><p>Forward. More tail-down force means the wing flies at a higher AOA.</p></details>
 <details><summary>What conditions make wake turbulence strongest?</summary><p>Heavy, clean, slow.</p></details>
 <details class="more-sc"><summary>More scenarios (4)</summary>
-<details><summary><span class="sc">SCENARIO</span>Two adults and full fuel, then you add 100 lb of bags in the baggage area. What changes?</summary><p>Weight goes up and the CG moves aft. Check both weight and CG for takeoff and landing. An aft CG makes the airplane less stable and stall recovery harder.</p></details>
+<details><summary><span class="sc">SCENARIO</span>Two up front and full fuel, then you add a 200-lb passenger in the rear seat. What changes?</summary><p>Weight goes up 200 lb and the CG moves aft, because the rear seat (118.1") is well behind the CG. Check weight and CG for takeoff and landing. An aft CG makes the airplane less stable and stall recovery harder.</p></details>
 <details><summary><span class="sc">SCENARIO</span>You're solo at about 2,000 lb and hit moderate turbulence. What speed do you slow to?</summary><p>V<sub>O</sub> drops with weight: 113 × √(2,000 ÷ 2,550) ≈ 100 KIAS. Slow to about 100 KIAS or less, not the 113 published at max gross.</p></details>
 <details><summary><span class="sc">SCENARIO</span>The POH shows a 1,600' ground roll. The runway is 2,200' of grass, slightly uphill, on a hot day. Go?</summary><p>Grass, upslope, and heat all lengthen the roll beyond the chart. Set an abort point: if you aren't at about 70% of liftoff speed by the runway's halfway point, abort. Better yet, wait for cooler air or lighten the load.</p></details>
 <details><summary><span class="sc">SCENARIO</span>Frost covers the wings on a cold morning and your passengers are in a hurry. Can you take off?</summary><p>No. Frost roughens the wing: higher stall speed, up to 30% less lift, and up to 40% more drag. Remove all of it before flight.</p></details>
@@ -2122,7 +2205,7 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
     }
     const low=term.toLowerCase(); const re=new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
     let count=0;
-    els.forEach(d=>{const ok=txt(d).includes(low); d.hidden=!ok; d.open=ok; if(ok){count++; const b=d.querySelector('.el-b'); markIn(b,re); b._marked=true;}});
+    els.forEach(d=>{const ok=txt(d).includes(low); d.hidden=!ok; d.open=ok; if(ok){count++; const b=d.querySelector('.el-b'); markIn(b,re); b._marked=true; b.querySelectorAll('details.ex').forEach(x=>x.open=x.textContent.toLowerCase().includes(low));}});
     quizItems.forEach(x=>x.hidden=!txt(x).includes(low)); fitMore(true);
     tasks.forEach(t=>{
       t.querySelectorAll('.group').forEach(g=>{let n=g.nextElementSibling,any=false;while(n&&n.matches('details.el')){if(!n.hidden)any=true;n=n.nextElementSibling;}g.hidden=!any;});
