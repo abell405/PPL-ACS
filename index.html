@@ -176,6 +176,15 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 .aids.quiz-on .aid-l li,.aids.quiz-on .aid-x{cursor:pointer}
 .aids.quiz-on .aid-m{color:transparent;background:var(--code-bg);border-radius:3px;user-select:none}
 .aids.quiz-on .aid-m.rev{color:inherit;background:none;user-select:auto}
+/* review list */
+#revBtn:not(:disabled){border-color:var(--r);color:var(--r)}
+#revBtn:disabled{opacity:.5;cursor:default}
+#revBtn[aria-pressed="true"]{background:var(--r);border-color:var(--r);color:var(--panel)}
+#revN{font-variant-numeric:tabular-nums}
+.revbar{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;background:var(--r-soft);border:1px solid var(--r);border-radius:12px;padding:12px 16px;margin-bottom:24px}
+.revbar-t{flex:1 1 240px;color:var(--ink)}
+.revbar-t b{font-family:var(--display);font-size:20px;text-transform:uppercase;letter-spacing:.02em;color:var(--r);margin-right:6px}
+.revbar-t span{color:var(--muted);font-size:14px}
 /* progress tracking */
 .prog{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .prog-top{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;font-size:14px}
@@ -220,6 +229,7 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
     <button class="btn" id="tocBtn" aria-controls="toc">☰ Tasks</button>
     <div class="brand"><b>PPL <span>ACS</span> Guide</b><small>Area I · Preflight Preparation</small></div>
     <div class="search"><input id="q" type="search" placeholder="Search a topic, reg, or code (e.g. 91.213, hypoxia)" aria-label="Search the guide"><button id="clear" aria-label="Clear search" hidden>×</button></div>
+    <button class="btn" id="revBtn" disabled title="Show only what you marked Review again">↺ Review <span id="revN">0</span></button>
     <button class="btn" id="expand">Expand all</button>
     <button class="btn" id="collapse">Collapse all</button>
   </div>
@@ -235,6 +245,7 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 </nav>
 
 <main id="main">
+<div class="revbar" id="revBar" hidden><span class="revbar-t"><b>Review list</b> <span id="revTxt"></span></span><button class="btn" id="revExit">Show everything</button></div>
 <div class="intro">
   <h1>Private Pilot ACS · Area of Operation I</h1>
   <p>Every Knowledge, Risk Management, and Skill element for Tasks A–H, in ACS order. Tap an element to open it, use search to jump to any reg or topic, and work the checkride questions at the end of each task. The Memory Aids cram sheet puts every mnemonic on one page.</p>
@@ -1860,7 +1871,7 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
       studied.forEach(t=>{const tg=t._items.filter(i=>state[i.key]==='got').length; g+=tg; r+=t._items.filter(i=>state[i.key]==='rev').length;
         t._count.textContent=tg+'/'+t._items.length; t._count.classList.toggle('done',tg===t._items.length);});
       const n=items.length;
-      txt.textContent=g+' of '+n+' got it · '+r+' to review';
+      txt.textContent=g+' of '+n+' got it · '+r+' to review'; updRev(r);
       document.getElementById('progGot').style.width=(g/n*100)+'%';
       document.getElementById('progRev').style.width=(r/n*100)+'%';
     }
@@ -1869,6 +1880,37 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
       if(!reset.classList.contains('arm')){reset.classList.add('arm');reset.textContent='Tap again to clear all';clearTimeout(armed);armed=setTimeout(()=>{reset.classList.remove('arm');reset.textContent='Reset';},3000);return;}
       state={}; save(); items.forEach(paint); totals(); reset.classList.remove('arm'); reset.textContent='Reset';
     };
+    // review list: show only what's marked "review again"
+    const revBtn=document.getElementById('revBtn'), revN=document.getElementById('revN'), revBar=document.getElementById('revBar'), revTxt=document.getElementById('revTxt');
+    const intro=document.querySelector('.intro');
+    let reviewing=false;
+    function updRev(r){
+      revN.textContent=r; revBtn.disabled=!r&&!reviewing;
+      if(reviewing) revTxt.textContent=r?r+' item'+(r===1?'':'s')+' marked Review again. Mark one Got it once you know it.':'Nothing left to review. Nice work.';
+    }
+    function enterReview(){
+      const qi=document.getElementById('q'); if(qi.value){qi.value=''; run();}
+      reviewing=true; revBtn.setAttribute('aria-pressed','true'); revBar.hidden=false; if(intro) intro.hidden=true;
+      document.querySelectorAll('.area-h,.leg').forEach(x=>x.hidden=true);
+      document.querySelectorAll('details.el').forEach(d=>{d.hidden=true;});
+      document.querySelectorAll('.quiz details').forEach(d=>{d.hidden=true;});
+      items.forEach(it=>{if(state[it.key]==='rev'){it.d.hidden=false; if(it.d.matches('details.el')) it.d.open=true;}});
+      tasks.forEach(t=>{
+        t.querySelectorAll('.group').forEach(g=>{let n=g.nextElementSibling,any=false;while(n&&n.matches('details.el')){if(!n.hidden)any=true;n=n.nextElementSibling;}g.hidden=!any;});
+        let anyQ=false;
+        t.querySelectorAll('.quiz').forEach(qz=>{qz.hidden=![...qz.querySelectorAll('details')].some(x=>!x.hidden); if(!qz.hidden) anyQ=true;});
+        t.hidden=![...t.querySelectorAll('details.el')].some(x=>!x.hidden) && !anyQ;
+      });
+      totals(); window.scrollTo({top:0});
+    }
+    function leaveReview(rerun){
+      reviewing=false; revBtn.setAttribute('aria-pressed','false'); revBar.hidden=true; if(intro) intro.hidden=false;
+      if(rerun) run();
+      totals();
+    }
+    revBtn.onclick=()=>reviewing?(leaveReview(true),window.scrollTo({top:0})):enterReview();
+    document.getElementById('revExit').onclick=()=>{leaveReview(true);window.scrollTo({top:0});};
+    document.getElementById('q').addEventListener('input',()=>{if(reviewing) leaveReview(false);});
     prog.hidden=false; totals();
   })();
   els.forEach(d=>d._def=d.open);
