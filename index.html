@@ -176,6 +176,36 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
 .aids.quiz-on .aid-l li,.aids.quiz-on .aid-x{cursor:pointer}
 .aids.quiz-on .aid-m{color:transparent;background:var(--code-bg);border-radius:3px;user-select:none}
 .aids.quiz-on .aid-m.rev{color:inherit;background:none;user-select:auto}
+/* practice mode */
+#prBtn{border-color:var(--sky);color:var(--sky)}
+.pr-ov{position:fixed;inset:0;z-index:30;background:rgba(14,22,32,.55);display:flex;align-items:center;justify-content:center;padding:16px}
+.pr-box{position:relative;background:var(--panel);color:var(--ink);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.3);width:min(640px,100%);max-height:calc(100dvh - 32px);overflow:auto;padding:22px 22px 20px}
+.pr-x{position:absolute;top:8px;right:8px;border:0;background:none;font-size:26px;color:var(--muted);cursor:pointer;padding:2px 10px;line-height:1}
+.pr-box h2{font-family:var(--display);font-size:28px;line-height:1.05;text-transform:uppercase;margin:0 36px 4px 0;letter-spacing:.01em}
+.pr-sub{color:var(--muted);margin:6px 0 4px;font-size:14px}
+.pr-lab{display:block;font:600 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px}
+#prSrc{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.pr-seg{display:flex;gap:8px}
+.pr-seg .btn{min-width:56px}
+.pr-seg .btn[aria-pressed="true"]{background:var(--sky);border-color:var(--sky);color:var(--panel)}
+.pr-act{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.pr-act .btn{padding:9px 14px;font-size:14px}
+.pr-go{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+.pr-go:hover{border-color:var(--accent)}
+.pr-got{border-color:var(--s);color:var(--s);background:var(--s-soft)}
+.pr-miss{border-color:var(--r);color:var(--r);background:var(--r-soft)}
+.pr-ask{font-weight:600;flex-basis:100%;margin-bottom:2px}
+.pr-top{display:flex;justify-content:space-between;font:500 12px var(--mono);color:var(--muted);margin-right:36px}
+.pr-bar{height:6px;background:var(--code-bg);border-radius:3px;overflow:hidden;margin:8px 0 16px}
+.pr-bar span{display:block;height:100%;background:var(--sky)}
+.pr-bar.big{height:10px;margin-top:12px}.pr-bar.big span{background:var(--s)}
+.pr-task{font:600 12px var(--mono);color:var(--muted);margin:0 0 8px;letter-spacing:.03em}
+.pr-tag{display:inline-block;font:600 10.5px var(--mono);color:var(--accent);letter-spacing:.06em;margin-bottom:2px}
+.pr-q{font-size:18px;font-weight:600;line-height:1.4;margin:2px 0 0}
+.pr-ans{margin-top:16px;padding:12px 14px;border-left:3px solid var(--s);background:var(--s-soft);border-radius:0 8px 8px 0;font-size:15px}
+.pr-ans p{margin:0 0 6px}.pr-ans>*:last-child{margin-bottom:0}.pr-ans ul{margin:4px 0;padding-left:20px}
+.pr-miss-l{font-size:14px;padding-left:20px;margin:12px 0 0}
+.pr-miss-l li{margin:5px 0}
 /* review list */
 #revBtn:not(:disabled){border-color:var(--r);color:var(--r)}
 #revBtn:disabled{opacity:.5;cursor:default}
@@ -229,6 +259,7 @@ details.aid>summary h3{font-size:13.5px;color:var(--muted)}
     <button class="btn" id="tocBtn" aria-controls="toc">☰ Tasks</button>
     <div class="brand"><b>PPL <span>ACS</span> Guide</b><small>Area I · Preflight Preparation</small></div>
     <div class="search"><input id="q" type="search" placeholder="Search a topic, reg, or code (e.g. 91.213, hypoxia)" aria-label="Search the guide"><button id="clear" aria-label="Clear search" hidden>×</button></div>
+    <button class="btn" id="prBtn">▶ Practice</button>
     <button class="btn" id="revBtn" disabled title="Show only what you marked Review again">↺ Review <span id="revN">0</span></button>
     <button class="btn" id="expand">Expand all</button>
     <button class="btn" id="collapse">Collapse all</button>
@@ -1789,6 +1820,8 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
 </main>
 </div>
 
+<div class="pr-ov" id="practice" hidden><div class="pr-box" role="dialog" aria-modal="true" aria-labelledby="prTitle"><button type="button" class="pr-x" id="prX" aria-label="Close practice">×</button><div id="prBody"></div></div></div>
+
 <button class="btn" id="top" aria-label="Back to top">↑ Top</button>
 
 <script>
@@ -1911,6 +1944,72 @@ Then neutralize rudder as rotation stops and recover from the dive.</li></ul>
     revBtn.onclick=()=>reviewing?(leaveReview(true),window.scrollTo({top:0})):enterReview();
     document.getElementById('revExit').onclick=()=>{leaveReview(true);window.scrollTo({top:0});};
     document.getElementById('q').addEventListener('input',()=>{if(reviewing) leaveReview(false);});
+    // practice mode: random checkride questions, one at a time; answers update the progress marks
+    const qItems=items.filter(it=>!it.d.matches('details.el'));
+    qItems.forEach(it=>it.task=it.d.closest('section.task'));
+    const pr=document.getElementById('practice'), prBody=document.getElementById('prBody');
+    let deck=[],idx=0,score=0,missed=[],lastFocus=null,prSrc='all',prN='10';
+    const esc=x=>x.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const qText=it=>{const sm=it.d.querySelector('summary').cloneNode(true); sm.querySelectorAll('.sc,.pm-dot').forEach(x=>x.remove()); return sm.textContent.trim();};
+    const qTag=it=>{const sc=it.d.querySelector('summary .sc'); return sc?sc.textContent.trim():'';};
+    const qAns=it=>{const f=document.createElement('div'); [...it.d.children].forEach(c=>{if(c.tagName!=='SUMMARY'&&!c.classList.contains('pm')) f.appendChild(c.cloneNode(true));}); return f.innerHTML;};
+    const taskLabel=t=>{const e=t.querySelector('.eyebrow'); return (e?e.textContent+' · ':'')+t.dataset.title;};
+    const pool=src=>src==='all'?qItems:src==='rev'?qItems.filter(i=>state[i.key]==='rev'):src==='new'?qItems.filter(i=>!state[i.key]):qItems.filter(i=>i.task.id===src);
+    function openPr(){lastFocus=document.activeElement; pr.hidden=false; document.body.style.overflow='hidden'; setup();}
+    function closePr(){pr.hidden=true; document.body.style.overflow=''; if(lastFocus) lastFocus.focus();}
+    function setup(){
+      const rev=pool('rev').length, nw=pool('new').length;
+      const tOpts=studied.filter(t=>qItems.some(i=>i.task===t)).map(t=>'<option value="'+t.id+'">'+esc(taskLabel(t))+' ('+pool(t.id).length+')</option>').join('');
+      prBody.innerHTML='<h2 id="prTitle">Practice</h2><p class="pr-sub">Random checkride questions, one at a time. Say your answer out loud, then check it. Missed questions go on your Review list.</p>'
+        +'<label class="pr-lab" for="prSrc">Questions from</label><select id="prSrc"><option value="all">All tasks ('+qItems.length+')</option>'
+        +'<option value="rev"'+(rev?'':' disabled')+'>Marked Review again ('+rev+')</option><option value="new"'+(nw?'':' disabled')+'>Not marked yet ('+nw+')</option>'
+        +'<optgroup label="One task">'+tOpts+'</optgroup></select>'
+        +'<span class="pr-lab">How many</span><div class="pr-seg" role="group" aria-label="How many">'+['10','20','all'].map(n=>'<button type="button" class="btn" data-n="'+n+'" aria-pressed="'+(n===prN)+'">'+(n==='all'?'All':n)+'</button>').join('')+'</div>'
+        +'<div class="pr-act"><button type="button" class="btn pr-go" id="prStart">Start</button></div>';
+      const sel=document.getElementById('prSrc'); if([...sel.options].some(o=>o.value===prSrc&&!o.disabled)) sel.value=prSrc;
+      prBody.querySelectorAll('.pr-seg .btn').forEach(b=>b.onclick=()=>{prN=b.dataset.n; prBody.querySelectorAll('.pr-seg .btn').forEach(x=>x.setAttribute('aria-pressed',x===b));});
+      document.getElementById('prStart').onclick=()=>{prSrc=sel.value; start(pool(prSrc),false);};
+      document.getElementById('prStart').focus();
+    }
+    function start(list,all){
+      deck=list.slice(); for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
+      if(!all&&prN!=='all') deck=deck.slice(0,+prN);
+      idx=0;score=0;missed=[]; deck.length?show():setup();
+    }
+    function show(){
+      const it=deck[idx], tag=qTag(it);
+      prBody.innerHTML='<div class="pr-top"><span>Question '+(idx+1)+' of '+deck.length+'</span><span>'+score+' got it</span></div>'
+        +'<div class="pr-bar"><span style="width:'+(idx/deck.length*100)+'%"></span></div>'
+        +'<p class="pr-task">'+esc(taskLabel(it.task))+'</p>'+(tag?'<span class="pr-tag">'+esc(tag)+'</span>':'')
+        +'<p class="pr-q" id="prTitle">'+esc(qText(it))+'</p><div class="pr-ans" hidden>'+qAns(it)+'</div>'
+        +'<div class="pr-act"><button type="button" class="btn pr-go" id="prShow">Show answer</button></div>';
+      document.getElementById('prShow').onclick=reveal; document.getElementById('prShow').focus();
+    }
+    function reveal(){
+      prBody.querySelector('.pr-ans').hidden=false;
+      prBody.querySelector('.pr-act').innerHTML='<span class="pr-ask">Did you get it?</span><button type="button" class="btn pr-got" id="prGot">✓ Got it</button><button type="button" class="btn pr-miss" id="prMiss">↺ Missed it</button>';
+      document.getElementById('prGot').onclick=()=>grade(true); document.getElementById('prMiss').onclick=()=>grade(false);
+      document.getElementById('prGot').focus();
+    }
+    function grade(ok){
+      const it=deck[idx]; state[it.key]=ok?'got':'rev'; save(); paint(it); totals();
+      if(ok) score++; else missed.push(it);
+      idx++; idx<deck.length?show():done();
+    }
+    function done(){
+      const pct=Math.round(score/deck.length*100);
+      prBody.innerHTML='<h2 id="prTitle">'+score+' of '+deck.length+' got it</h2><div class="pr-bar big"><span style="width:'+pct+'%"></span></div>'
+        +'<p class="pr-sub">'+(missed.length?'These are now marked <b>Review again</b>, so they\'re on your Review list:':'Clean sweep. Nice work.')+'</p>'
+        +(missed.length?'<ul class="pr-miss-l">'+missed.map(m=>'<li>'+esc(qText(m))+'</li>').join('')+'</ul>':'')
+        +'<div class="pr-act">'+(missed.length?'<button type="button" class="btn pr-go" id="prRetry">Retry the '+missed.length+' missed</button>':'')
+        +'<button type="button" class="btn" id="prAgain">New set</button><button type="button" class="btn" id="prDone">Close</button></div>';
+      const r=document.getElementById('prRetry'); if(r){r.onclick=()=>start(missed,true); r.focus();}
+      document.getElementById('prAgain').onclick=setup; document.getElementById('prDone').onclick=closePr;
+    }
+    document.getElementById('prBtn').onclick=openPr;
+    document.getElementById('prX').onclick=closePr;
+    pr.addEventListener('click',e=>{if(e.target===pr) closePr();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pr.hidden) closePr();});
     prog.hidden=false; totals();
   })();
   els.forEach(d=>d._def=d.open);
